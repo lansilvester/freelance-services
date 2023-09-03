@@ -6,7 +6,7 @@
         <h1 class="h3 mb-3"><strong>Kategori</strong></h1>
         
         <div class="row">
-            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+            <div class="col-12 d-flex">
                 <div class="card flex-fill">
                     @if (session('success'))
                         <div class="alert alert-primary">
@@ -19,15 +19,15 @@
                         <a href="{{ route('kategori.create') }}" class="btn btn-success fw-bolder"><i data-feather="plus"></i> Tambah Data Kategori</a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover text-center">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nama Kategori</th>
                                     <th>Deskripsi</th>
-                                    <th class="d-none d-xl-table-cell">Icon Kategori</th>
-                                    <th class="d-none d-xl-table-cell">Jumlah Item</th>
-                                    <th class="d-none d-md-table-cell">Aksi</th>
+                                    <th>Icon Kategori</th>
+                                    <th>Jumlah Service</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,7 +38,7 @@
                                     <td>{{ $data->deskripsi }}</td>
                                     <td style="font-size: 3em">{!! $data->icon !!}</td>
                                     <td>{{ $data->count() }}</td>
-                                    <td class="text-center">
+                                    <td>
                                         {{-- <a href="{{ route('kategori.show', $data->id) }}" class="btn btn-info"><i data-feather="eye"></i></a> --}}
                                         <a href="{{ route('kategori.edit', $data->id) }}" class="btn btn-warning"><i data-feather="edit"></i></a>
                                         <form action="{{ route('kategori.destroy', $data->id) }}" method="POST" class="d-inline">
@@ -50,7 +50,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5">Belum ada data</td>
+                                    <td colspan="6">Belum ada data</td>
                                 </tr>
                                 @endforelse
                             </tbody>

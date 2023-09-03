@@ -6,16 +6,36 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [LandingPageController::class, 'index']);
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('kategori', CategoryController::class);
+    Route::resource('vendor', VendorController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::resource('users', UserController::class);
+
+
 });
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Keperluan Acara
 // Carering dan restoran kecil

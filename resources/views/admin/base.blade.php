@@ -18,7 +18,9 @@
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
 	<title>Admin Dashboard</title>
-
+	<style>
+	
+	</style>
 	<link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -50,7 +52,7 @@
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('kategori.index') }}">
+						<a class="sidebar-link" href="{{ route('vendor.index') }}">
 							<i class="align-middle" data-feather="award"></i> <span
 								class="align-middle">Vendor</span>
 						</a>
@@ -65,6 +67,7 @@
 		</nav>
 
 		<div class="main">
+			{{-- Topbar --}}
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
 					<i class="hamburger align-self-center"></i>
@@ -80,7 +83,7 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="{{ asset('admin/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded me-1"
+								<img src="{{ asset('storage/'.Auth::user()->foto_profil) }}" class="avatar img-fluid rounded me-1"
 									alt="profile picture" /> <span class="text-dark">{{ Auth::user()->email }}</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
@@ -99,6 +102,7 @@
 
 			@yield('content')
 
+			{{-- Footer --}}
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
