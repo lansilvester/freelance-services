@@ -6,19 +6,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryHomeController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceHomeController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', [LandingPageController::class, 'index']);
+Route::resource('service_home', ServiceHomeController::class);
+Route::resource('category_home', CategoryHomeController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('kategori', CategoryController::class);
     Route::resource('vendor', VendorController::class);
+    Route::resource('service', ServiceController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('users', UserController::class);
-
 
 });
 Auth::routes();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,12 +62,11 @@ class VendorController extends Controller
     public function edit($id)
     {
         $vendor = Vendor::findOrFail($id);
-        return view('vendor.edit', compact('vendor'));
+        return view('admin.pages.vendor.edit', compact('vendor'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $this->validate($request, [
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
@@ -78,10 +78,8 @@ class VendorController extends Controller
             'linkedin' => 'nullable|string',
         ]);
 
-        // Cari vendor yang akan diperbarui
         $vendor = Vendor::findOrFail($id);
 
-        // Proses upload foto jika ada
         if ($request->hasFile('foto')) {
             $fotoName = $request->file('foto')->store('foto_vendor', 'public');
 
@@ -109,7 +107,8 @@ class VendorController extends Controller
     public function show($id)
     {
         $vendor = Vendor::findOrFail($id);
-        return view('vendor.show', compact('vendor'));
+        $data_service = Service::where('vendor_id', $id)->paginate(5);
+        return view('admin.pages.vendor.show', compact('vendor','data_service'));
     }
 
     public function destroy($id)

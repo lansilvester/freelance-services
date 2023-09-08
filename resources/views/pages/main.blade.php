@@ -83,51 +83,21 @@
           </div>
           <div class="row mb-3 d-flex justify-content-evenly">
 
+            @forelse ($data_service as $service)
             <div class="col-xl-3 col-md-4 d-flex mx-1 mb-3 shadow-sm p-3 rounded" data-aos="zoom-in" data-aos-delay="100">
               <div class="icon-box w-100" style="border-radius: 1em">
-                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">Teknologi dan komunikasi</div>
-                <h3><a href="">Sewa Sound Sistem</a></h3>
-                <p>Tempat sewa sound sistem terbaik</p>
+                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">{{ $service->category->nama }}</div>
+                <h3><a href="{{ route('service_home.show', $service->id) }}">{{ $service->nama }}</a></h3>
+                <p>{{ $service->deskripsi }}</p>
                 <div class="d-flex justify-content-between">
-                  <address style="color:#bbb"><i class='bx bx-map'></i> Manado</address>
-                  <address style="color:#bbb"><i class='bx bx-phone'></i> 08123123123</address>
+                  <address style="color:#bbb"><i class='bx bx-map'></i> {{ $service->vendor->alamat }}</address>
+                  <address style="color:#bbb"><i class='bx bx-phone'></i>{{ $service->vendor->kontak }}</address>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-4 d-flex mx-1 mb-3 shadow-sm p-3 rounded" data-aos="zoom-in" data-aos-delay="100">
-              <div class="icon-box w-100" style="border-radius: 1em">
-                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">Teknologi dan komunikasi</div>
-                <h3><a href="">Sewa Sound Sistem</a></h3>
-                <p>Tempat sewa sound sistem terbaik</p>
-                <div class="d-flex justify-content-between">
-                  <address style="color:#bbb"><i class='bx bx-map'></i> Manado</address>
-                  <address style="color:#bbb"><i class='bx bx-phone'></i> 08123123123</address>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-4 d-flex mx-1 mb-3 shadow-sm p-3 rounded" data-aos="zoom-in" data-aos-delay="100">
-              <div class="icon-box w-100" style="border-radius: 1em">
-                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">Teknologi dan komunikasi</div>
-                <h3><a href="">Sewa Sound Sistem</a></h3>
-                <p>Tempat sewa sound sistem terbaik</p>
-                <div class="d-flex justify-content-between">
-                  <address style="color:#bbb"><i class='bx bx-map'></i> Manado</address>
-                  <address style="color:#bbb"><i class='bx bx-phone'></i> 08123123123</address>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-4 d-flex mx-1 mb-3 shadow-sm p-3 rounded" data-aos="zoom-in" data-aos-delay="100">
-              <div class="icon-box w-100" style="border-radius: 1em">
-                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">Teknologi dan komunikasi</div>
-                <h3><a href="">Sewa Sound Sistem</a></h3>
-                <p>Tempat sewa sound sistem terbaik</p>
-                <div class="d-flex justify-content-between">
-                  <address style="color:#bbb"><i class='bx bx-map'></i> Manado</address>
-                  <address style="color:#bbb"><i class='bx bx-phone'></i> 08123123123</address>
-                </div>
-              </div>
-            </div>
-
+            @empty
+                <div class="alert alert-info">Belum ada Service</div>
+            @endforelse
           </div>
           <div class="row">
             <div class="col-12 d-flex justify-content-center">

@@ -58,7 +58,7 @@
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('kategori.index') }}">
+						<a class="sidebar-link" href="{{ route('service.index') }}">
 							<i class="align-middle" data-feather="bell"></i> <span
 								class="align-middle">Service</span>
 						</a>
