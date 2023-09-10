@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+use App\Models\Vendor;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ServiceHomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $data_service = Service::all();
+        $data_kategori = Category::all();
+        return view('pages.service.all', compact('data_service','data_kategori'));
     }
 
     /**
@@ -45,7 +46,10 @@ class ServiceHomeController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $service = Service::findOrFail($id);
+        $data_kategori = Category::all();
+        return view('pages.service.show', compact('service','data_kategori'));
     }
 
     /**

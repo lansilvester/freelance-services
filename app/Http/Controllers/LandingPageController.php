@@ -14,4 +14,5 @@ class LandingPageController extends Controller
         
         return view('pages.main', compact('data_kategori', 'data_service'));
     }
+
 }

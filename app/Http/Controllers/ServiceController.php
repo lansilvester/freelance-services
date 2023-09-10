@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Service;
+use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -11,8 +13,19 @@ use Illuminate\Support\Facades\Storage;
 class ServiceController extends Controller{
     public function index()
     {
-        $data_service = Service::all();
-        return view('admin.pages.services.all', compact('data_service'));
+        if(Auth::user()->role == 'super_admin'){
+            $data_service = Service::all();
+            return view('admin.pages.services.all', compact('data_service'));
+        }
+        
+        if(Auth::user()->role == 'admin_vendor'){
+            
+            // $data_service = Service::where('vendor_id', Auth::user()->id)->get();
+
+            $data_service = Auth::user()->vendor->services;
+            // dd($data_service);
+            return view('admin.pages.services.all', compact('data_service'));
+        }
         
     }
     public function admin_service($id)
@@ -25,7 +38,8 @@ class ServiceController extends Controller{
     public function create()
     {
         $data_kategori = Category::all();
-        return view('admin.pages.services.create', compact('data_kategori'));
+        $data_vendor = Vendor::where('user_id', Auth::user()->id)->get();
+        return view('admin.pages.services.create', compact('data_kategori','data_vendor'));
     }
 
     public function store(Request $request)
@@ -50,7 +64,7 @@ class ServiceController extends Controller{
     
         // Buat service baru dengan vendor_id sesuai user yang sedang login
         $service = new Service;
-        $service->vendor_id = $user->vendor->id; // Sesuaikan dengan relasi yang digunakan
+        $service->vendor_id = $request->input('vendor_id');
         $service->category_id = $request->input('category_id');
         $service->nama = $request->input('nama');
         $service->foto = $fotoServiceName;

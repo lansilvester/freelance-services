@@ -24,6 +24,17 @@
                                 </select>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="vendor_id" class="card-title">Vendor</label>
+                                <select class="form-control" id="vendor_id" name="vendor_id">
+                                    <option value="">--My Vendor--</option>
+                                    @forelse ($data_vendor as $vendor)
+                                        <option value="{{ $vendor->id }}">{{ $vendor->nama }}</option>
+                                    @empty
+                                        <option value="">vendor Kosong</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="nama" class="card-title">Nama Service</label>
                                 <input type="text" class="form-control" id="nama" placeholder="Masukkan nama service.." name="nama" autofocus>
                             </div>

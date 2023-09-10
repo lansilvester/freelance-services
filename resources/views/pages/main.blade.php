@@ -8,7 +8,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>About Us</h2>
+          <h2>Tentang</h2>
         </div>
 
         <div class="row content">
@@ -45,7 +45,7 @@
           <div class="col-xl-4 col-md-6 d-flex align-items-stretch mb-3  text-center" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box w-100" style="border-radius: 1em">
               <div class="icon">{!! $data->icon !!}</div>
-              <h4><a href="">{{ $data->nama }}</a></h4>
+              <h4><a href="{{ route('category_home.show', $data->id) }}">{{ $data->nama }}</a></h4>
               <p>{{ $data->deskripsi }}</p>
             </div>
           </div>
@@ -86,12 +86,13 @@
             @forelse ($data_service as $service)
             <div class="col-xl-3 col-md-4 d-flex mx-1 mb-3 shadow-sm p-3 rounded" data-aos="zoom-in" data-aos-delay="100">
               <div class="icon-box w-100" style="border-radius: 1em">
-                <div class="alert alert-success fw-bolder" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">{{ $service->category->nama }}</div>
+                <div class="badge badge-primary bg-primary mb-3" style="width: 70%; border-radius:3em; font-size:.8em; padding:.9em;">{{ $service->category->nama }}</div>
                 <h3><a href="{{ route('service_home.show', $service->id) }}">{{ $service->nama }}</a></h3>
-                <p>{{ $service->deskripsi }}</p>
-                <div class="d-flex justify-content-between">
-                  <address style="color:#bbb"><i class='bx bx-map'></i> {{ $service->vendor->alamat }}</address>
-                  <address style="color:#bbb"><i class='bx bx-phone'></i>{{ $service->vendor->kontak }}</address>
+                <address style="color:#bbb"><i class='bx bx-time'></i> {{ $service->created_at->diffForHumans() }}</address>
+                <p class="text-truncate">{{ $service->deskripsi }}</p>
+                <div class="">
+                  <address style="color:#bbb;margin:0px"><i class='bx bx-map'></i> {{ $service->vendor->alamat }}</address>
+                  <address style="color:#bbb;margin:0px"><i class='bx bx-phone'></i> {{ $service->vendor->kontak }}</address>
                 </div>
               </div>
             </div>
@@ -101,7 +102,7 @@
           </div>
           <div class="row">
             <div class="col-12 d-flex justify-content-center">
-             <a href="" class="d-flex align-items-center shadow-lg fw-bold lihat_semua">Lihat semua <i class='bx bx-right-arrow-alt' style="font-size:2em"></i></a>
+             <a href="{{ route('service_home.index') }}" class="d-flex align-items-center shadow-lg fw-bold lihat_semua">Lihat semua <i class='bx bx-right-arrow-alt' style="font-size:2em"></i></a>
             </div>
           </div>
       </div>

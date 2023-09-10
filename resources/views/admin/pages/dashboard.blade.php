@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-
+        @if (Auth::user()->role == 'super_admin')
         <div class="row">
             <div class="col-12 col-lg-12 col-xxl-12 d-flex">
                 <div class="card flex-fill">
@@ -96,8 +96,13 @@
                         {{ session('success') }}
                     </div>
                     @endif
+                    @if (session('success_hapus'))
+                    <div class="alert alert-primary">
+                        {{ session('success_hapus') }}
+                    </div>
+                    @endif
                     <div class="card-header d-flex justify-content-between">
-                        <h5 class="card-title mb-0">Daftar Users</h5>
+                        <h5 class="card-title mb-0">Data Pengguna</h5>
                         <a href="{{ route('users.create') }}" class="btn btn-success"><i data-feather="plus"></i> Tambah User</a>
                     </div>
                     <table class="table table-hover my-0">
@@ -122,7 +127,14 @@
                                 <td class="text-center">
                                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-info"><i data-feather="eye"></i></a>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning"><i data-feather="edit"></i></a>
-
+                                    
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -133,6 +145,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
     </div>
 </main>

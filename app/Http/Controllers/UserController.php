@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserDeleted;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +18,11 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.pages.users.create');
+        if(Auth::user()->role == 'super_admin'){
+            return view('admin.pages.users.create');
+        }else{
+            return redirect()->route('dashboard.index');
+        }
     }
 
     public function store(Request $request)
@@ -58,7 +64,12 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::FindOrFail($id);
-        return view('admin.pages.users.edit', compact('user'));        
+        if(Auth::user()->id == $user->id){
+            return view('admin.pages.users.edit', compact('user'));
+        }else{
+            return redirect()->route('dashboard.index');
+
+        }
     }
 
     public function update(Request $request, $id)
@@ -103,15 +114,20 @@ class UserController extends Controller
         return redirect()->route('dashboard.index')->with('success', 'Pengguna berhasil diperbarui!');
     }
     
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        event(new UserDeleted($user));
+
+        // Hapus foto profil jika ada
+        if ($user->foto_profil) {
+            Storage::disk('public')->delete($user->foto_profil);
+        }
+    
+        // Hapus user dari database
+        $user->delete();
+    
+        return redirect()->route('dashboard.index')->with('success_hapus', 'Pengguna berhasil dihapus!');
     }
+    
 }

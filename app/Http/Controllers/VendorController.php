@@ -14,7 +14,8 @@ class VendorController extends Controller
     public function index()
     {
         $data_vendor = Vendor::paginate(7);
-        return view('admin.pages.vendor.all', compact('data_vendor'));
+        $data_vendor_by_user = Vendor::where('user_id', Auth::user()->id)->get();
+        return view('admin.pages.vendor.all', compact('data_vendor','data_vendor_by_user'));
     }
 
     public function create()
@@ -28,7 +29,7 @@ class VendorController extends Controller
         $this->validate($request, [
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'foto' => 'image|max:2048', // Sesuaikan dengan validasi yang Anda butuhkan
+            'foto' => 'image|max:2048',
             'kontak' => 'required|string',
             'alamat' => 'required|string',
             'instagram' => 'nullable|string',
@@ -53,7 +54,7 @@ class VendorController extends Controller
         $vendor->instagram = $request->input('instagram');
         $vendor->facebook = $request->input('facebook');
         $vendor->linkedin = $request->input('linkedin');
-        $vendor->user_id = Auth::user()->id; // Set user_id sesuai dengan user yang sedang login
+        $vendor->user_id = $user->id; // Set user_id sesuai dengan user yang sedang login
         $vendor->save();
 
         return redirect()->route('vendor.index')->with('success', 'Vendor berhasil ditambahkan!');
@@ -91,7 +92,6 @@ class VendorController extends Controller
             $vendor->foto = $fotoName;
         }
 
-        // Perbarui informasi vendor
         $vendor->nama = $request->input('nama');
         $vendor->deskripsi = $request->input('deskripsi');
         $vendor->kontak = $request->input('kontak');

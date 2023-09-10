@@ -26,9 +26,11 @@
                         <div class="d-flex align-items-center shadow-lg p-4">
                             <img src="{{ asset('storage/' . $data->foto) }}" alt="{{ $user->name }}" class="img-fluid rounded me-3" width="50">
                             <div class="teks" style="">
-                                <h4 style="color:#008e93;font-weight:bolder">{{ $data->nama }}</h4>
-                                <b>Jumlah Service</b><br>
-                                <small>{{ $data->count() }}</small>
+                                <a href="{{ route('vendor.show', $data->id) }}" class="text-decoration-none">
+                                    <h4 style="color:#008e93;font-weight:bolder">{{ $data->nama }}</h4>
+                                </a>
+                                    <b>Jumlah Service</b><br>
+                                    <small>{{ $data->count() }}</small>
                             </div>
                         </div>
                     @empty

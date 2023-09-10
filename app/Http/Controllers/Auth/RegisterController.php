@@ -15,20 +15,18 @@ class RegisterController extends Controller
     use RegistersUsers;
 
 
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = RouteServiceProvider::LOGIN;
     public function __construct()
     {
         $this->middleware('guest');
     }
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'foto_profil' => ['nullable', 'max:2048'], // Add this line for profile photo
+            'foto_profil' => ['nullable', 'max:2048'],
 
         ]);
     }
@@ -56,5 +54,8 @@ class RegisterController extends Controller
             $user->foto_profil = $request->file('foto_profil')->store('profile_photos', 'public');
             $user->save();
         }
+        auth()->logout();
+        return redirect()->route('login')->with('register_success', '<b>Berhasil registrasi</b>. Silakan masuk.');
+
     }
 }

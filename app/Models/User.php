@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function vendor(){
-        return $this->hasMany(Vendor::class);
+        return $this->hasOne(Vendor::class);
     }
+    
 }

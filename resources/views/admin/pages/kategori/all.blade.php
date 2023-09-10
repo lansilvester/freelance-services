@@ -36,8 +36,8 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $data->nama }}</td>
                                     <td>{{ $data->deskripsi }}</td>
-                                    <td style="font-size: 3em">{!! $data->icon !!}</td>
-                                    <td>{{ $data->count() }}</td>
+                                    <td style="font-size: 3em; color:#1b81d4">{!! $data->icon !!}</td>
+                                    <td>{{ $data->countServices() }}</td>
                                     <td>
                                         {{-- <a href="{{ route('kategori.show', $data->id) }}" class="btn btn-info"><i data-feather="eye"></i></a> --}}
                                         <a href="{{ route('kategori.edit', $data->id) }}" class="btn btn-warning"><i data-feather="edit"></i></a>

@@ -6,7 +6,7 @@
         <h1 class="h3 mb-3"><strong>Service</strong></h1>
         
         <div class="row">
-            <div class="col-12 d-flex">
+            <div class="col-12">
                 <div class="card flex-fill">
                     @if (session('success'))
                         <div class="alert alert-primary">
@@ -25,8 +25,8 @@
                                     <th>#</th>
                                     <th>Vendor</th>
                                     <th>Nama</th>
-                                    <th>Deskripsi</th>
                                     <th>Kategori</th>
+                                    <th>Dibuat pada</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -34,10 +34,21 @@
                                 @forelse ($data_service as $i => $service)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
-                                    <td>{{ $service->vendor->nama }}</td>
+                                    <td>
+                                        <a href="{{ route('vendor.show',$service->id) }}">
+                                            <span class="badge badge-success bg-success fs-5">{{ $service->vendor->nama }}</span>
+                                        </a>
+                                    </td>
                                     <td>{{ $service->nama }}</td>
-                                    <td>{{ $service->deskripsi }}</td>
-                                    <td><b style="font-size:1.4em">{!! $service->category->icon !!}</b> {{ $service->category->nama }}</td>
+                                    <td>
+                                        <span class="badge badge-primary bg-primary">
+                                            <b style="font-size:1.4em">{!! $service->category->icon !!}</b> {{ $service->category->nama }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <strong><small>{{ $service->created_at->format('d-M-Y') }}</small></strong>
+                                        (<small><i>{{ $service->created_at->diffForHumans() }}</i></small>)
+                                    </td>
                                     
                                     <td>
                                         <a href="{{ route('service.show', $service->id) }}" class="btn btn-info"><i data-feather="eye"></i></a>
