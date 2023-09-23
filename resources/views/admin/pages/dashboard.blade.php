@@ -9,6 +9,8 @@
             <div class="col-12 d-flex">
                 <div class="w-100">
                     <div class="row">
+
+                        @if(Auth::user()->role == 'super_admin')
                         <div class="col-3">
                             <div class="card">
                                 <div class="card-body">
@@ -82,7 +84,28 @@
                                 </div>
                             </div>
                         </div>
-    
+                        @else
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Vendor</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="award"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3">{{ $my_vendor->count() }}</h1>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        
                     </div>
                 </div>
             </div>

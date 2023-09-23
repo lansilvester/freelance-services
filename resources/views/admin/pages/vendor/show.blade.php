@@ -19,7 +19,10 @@
                             <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
                                 <h5 class="card-title">Vendor</h5>
                                 <img src="{{ asset('storage/' .  $vendor->foto) }}" alt="Foto Service" class="img-fluid mb-3" style=" width:px; margin-right:1em; border-radius:.8em;">
+                               
+                                @if(Auth::user()->id == $vendor->user->id)
                                 <a href="{{ route('vendor.edit',$vendor->id) }}" class="btn btn-success w-100"><i data-feather="edit-2"></i> Edit</a>
+                                @endif
                                 <div style="color:#888; margin:2em 0px;">
                                     <h2>
                                         {{ $vendor->nama }}
@@ -37,7 +40,7 @@
                             <div class="col-md-8 col-sm-6 col-xs-12 mb-4 shadow-lg rounded">
                                 <h5 class="card-title">Social Media</h5>
                                 <div class="mb-3">
-                                    <a href="{{ $vendor->facebook }}" style="margin:5px;background-color:#0061ab; color:white; padding:5px 10px;border-radius:.5em;">
+                                    <a href="{{ $vendor->facebook }}" target="_blank" style="margin:5px;background-color:#0061ab; color:white; padding:5px 10px;border-radius:.5em;">
                                         <i data-feather="facebook"></i>
                                         {{ $vendor->facebook }}
                                     </a>
@@ -53,6 +56,10 @@
                                     <div class="my-2 shadow p-2">
                                         <h5 class="card-title">Deskripsi</h5>
                                         <p>{{ $vendor->deskripsi }}</p>
+                                    </div>
+                                    <div class="my-2 shadow p-2">
+                                        <h5 class="card-title">Map</h5>
+                                        {!! $vendor->map !!}
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +80,9 @@
                                                     <p class="text-dark"><small>{{ $data->created_at->format('d-M-Y') }}</small></p>
         
                                                 </a>
+                                                @if(Auth::user()->id == $data->vendor->user->id)
                                                 <a href="{{ route('service.edit', $data->id) }}" class="btn btn-outline-success"><i data-feather="edit-2"></i> Edit</a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

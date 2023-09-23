@@ -46,6 +46,10 @@
                                 <label for="deskripsi" class="card-title">Deskripsi Service</label>
                                 <textarea class="form-control" id="deskripsi" placeholder="Deskripsi service.." name="deskripsi"></textarea>
                             </div>
+                            <div class="form-group mb-4">
+                                <label for="layanan" class="card-title">List Layanan</label>
+                                <textarea class="form-control" id="layanan" placeholder="Layanan" name="layanan" rows="10"></textarea>
+                            </div>
                             <button type="submit" class="btn btn-success w-100" name="submit"><i data-feather="plus"></i>Tambah Service</button>
                         </form>     
                     </div>

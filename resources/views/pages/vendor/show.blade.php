@@ -54,6 +54,11 @@
                             </a>
                         </span>
                     </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <b><i class="bi bi-map"></i> Maps</b>
+                        {!! $vendor->map !!}
+                    </div>
+                    
                 </div>
             </div>
             <div class="col-8 px-5">

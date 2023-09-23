@@ -57,6 +57,14 @@
                                 <label for="linkedin" class="card-title">LinkedIn</label>
                                 <input type="text" class="form-control" id="linkedin" placeholder="Masukkan akun LinkedIn vendor.." name="linkedin" value="{{ $vendor->linkedin }}">
                             </div>
+                            <div class="form-group mb-4">
+                                <label for="map" class="card-title">Maps</label>
+                                <div>
+                                    {!! $vendor->map !!}
+                                </div>
+                                <small><a target="_blank" href="https://www.google.com/maps/place/Kota+Manado,+Sulawesi+Utara/@1.4560422,124.8225907,12z/data=!4m6!3m5!1s0x32879ef9ffb30fd3:0x3030bfbcaf77280!8m2!3d1.4748305!4d124.8420794!16zL20vMDNnZnpi?entry=ttu"><b>Open map</b></a>>Bagikan>Sematkan Peta>Salin HTML> <i>Paste</i> dibawah</small>
+                                <input type="text" class="form-control" id="map" placeholder="Masukkan akun map vendor.." name="map" value="{{ $vendor->map }}">
+                            </div>
                             <button type="submit" class="btn btn-primary w-100" name="submit"><i data-feather="edit"></i>Update Vendor</button>
                         </form>     
                     </div>

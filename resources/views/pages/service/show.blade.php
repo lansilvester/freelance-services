@@ -1,5 +1,26 @@
 @extends('layouts.home-page')
 @section('content')
+
+<style>
+  .star {
+      cursor: pointer;
+      font-size: 24px;
+      margin-right: 5px;
+  }
+
+  .selected {
+      color: gold;
+  }
+  .mb-3{
+      margin-bottom:30px;
+  }
+  .mt-3{
+      margin-top:30px;
+  }
+  h3{
+      color:#007ca1;
+  }
+</style>
 <div class="container-fluid py-3">
     <ul class="list-inline text-center">
         @foreach($data_kategori as $data)
@@ -64,10 +85,108 @@
                 <span class="badge badge-success bg-success mb-2">{{ $service->category->nama }}</span>
                 <h3>{{ $service->nama }}</h3>
                 <small class="text-dark text-opacity-50">{{ $service->created_at->diffForHumans() }}</small>
-                <p class="py-3">{{ $service->deskripsi }}</p>
+                <div class="accordion my-3" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Deskripsi
+                        </button>
+                      </h2>
+                      
+                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <p>{{ $service->deskripsi }}</p>  
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Layanan
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                         <p>{{ $service->layanan }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Ulasan
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            @if(Auth::check())
+                            <div class="col-12">
+                                <h3 class="">Berikan Ulasan Anda</h3>
+                                <br>
+                                <form method="POST" action="">
+                                    @csrf
+                                    <input type="hidden" name="kuliner_id" value="">
+                                    <div class="rating">
+                                        <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+                                        <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+                                        <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+                                        <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+                                        <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+                                        <input type="hidden" name="rating" id="rating" value="0">
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" id="ulasan" name="ulasan" rows="3" placeholder="Tambahkan komentar"></textarea>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+            
+                                        <button type="submit" class="btn btn-primary" name="submit"><i class="bi bi-send"></i> Kirim Ulasan</button>
+                                    </div>
+                                </form>
+                            </div>
+                            @else
+
+                            @endif
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const stars = document.querySelectorAll('.star');
+      const ratingInput = document.getElementById('rating');
+      const ulasanInput = document.getElementById('ulasan'); // Ubah ini
+  
+      stars.forEach(star => {
+          star.addEventListener('click', () => {
+              const rating = parseInt(star.getAttribute('data-rating'));
+              ratingInput.value = rating;
+  
+              // Untuk memberi efek visual pada bintang yang dipilih.
+              stars.forEach(s => {
+                  const sRating = parseInt(s.getAttribute('data-rating'));
+                  if (sRating <= rating) {
+                      s.classList.add('selected');
+                  } else {
+                      s.classList.remove('selected');
+                  }
+              });
+          });
+      });
+  
+      // Tambahkan event listener untuk mengambil nilai textarea
+      ulasanInput.addEventListener('input', function () {
+          // Misalnya, Anda dapat menyimpan nilai dalam variabel
+          const ulasanValue = this.value;
+          // Kemudian, lakukan apa yang Anda inginkan dengan nilai ini
+      });
+  });
+  
+  </script>
 @endsection

@@ -49,6 +49,7 @@ class ServiceController extends Controller{
             'nama' => 'required|string|max:255',
             'foto' => 'image|max:2048', // Sesuaikan dengan validasi yang Anda butuhkan
             'deskripsi' => 'required',
+            'layanan' => 'required',
         ]);
     
         // Ambil informasi user yang sedang login
@@ -69,6 +70,7 @@ class ServiceController extends Controller{
         $service->nama = $request->input('nama');
         $service->foto = $fotoServiceName;
         $service->deskripsi = $request->input('deskripsi');
+        $service->layanan = $request->input('layanan');
         $service->save();
     
         return redirect()->route('service.index')->with('success', 'Service berhasil ditambahkan!');
@@ -81,12 +83,6 @@ class ServiceController extends Controller{
         return view('admin.pages.services.show', compact('service'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $service = Service::findOrFail($id);
@@ -102,6 +98,7 @@ class ServiceController extends Controller{
             'nama' => 'required|string|max:255',
             'foto' => 'image|max:2048', // Sesuaikan dengan validasi yang Anda butuhkan
             'deskripsi' => 'required',
+            'layanan' => 'string',
         ]);
     
         $user = auth()->user();
@@ -125,6 +122,7 @@ class ServiceController extends Controller{
         $service->category_id = $request->input('category_id');
         $service->nama = $request->input('nama');
         $service->deskripsi = $request->input('deskripsi');
+        $service->layanan = $request->input('layanan');
         $service->save();
     
         return redirect()->route('service.index')->with('success', 'Service berhasil diperbarui!');

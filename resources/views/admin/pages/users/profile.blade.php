@@ -29,15 +29,13 @@
                                 <a href="{{ route('vendor.show', $data->id) }}" class="text-decoration-none">
                                     <h4 style="color:#008e93;font-weight:bolder">{{ $data->nama }}</h4>
                                 </a>
-                                    <b>Jumlah Service</b><br>
-                                    <small>{{ $data->count() }}</small>
                             </div>
                         </div>
                     @empty
                         <div class="alert alert-success">
                             <strong>Belum ada Vendor</strong>
                             <p class="my-4">
-                                <a href="{{ route('vendor.create') }}" class="btn btn-success"><i class="bi bi-plus"></i> Buat Vendor</a>
+                                <a href="{{ route('vendor.create') }}" class="btn btn-success"><i class="bi bi-plus"></i> Vendor</a>
                             </p>
                         </div>
                     @endforelse

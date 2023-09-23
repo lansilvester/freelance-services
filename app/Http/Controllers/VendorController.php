@@ -35,14 +35,21 @@ class VendorController extends Controller
             'instagram' => 'nullable|string',
             'facebook' => 'nullable|string',
             'linkedin' => 'nullable|string',
+            'map' => 'nullable|string'
         ]);
         if ($request->hasFile('foto')) {
             $fotoName = $request->file('foto')->store('foto_vendor', 'public');
         } else {
             $fotoName = null;
         }
-
         $user = Auth::user();
+
+        // Periksa peran pengguna saat ini
+        if ($user->role === 'user') {
+            // Jika peran adalah 'user', ubah menjadi 'admin_vendor'
+            $user->role = 'admin_vendor';
+            $user->save();
+        }
 
         // Buat vendor baru
         $vendor = new Vendor;
@@ -54,6 +61,7 @@ class VendorController extends Controller
         $vendor->instagram = $request->input('instagram');
         $vendor->facebook = $request->input('facebook');
         $vendor->linkedin = $request->input('linkedin');
+        $vendor->map = $request->input('map');
         $vendor->user_id = $user->id; // Set user_id sesuai dengan user yang sedang login
         $vendor->save();
 
@@ -77,6 +85,7 @@ class VendorController extends Controller
             'instagram' => 'nullable|string',
             'facebook' => 'nullable|string',
             'linkedin' => 'nullable|string',
+            'map' => 'nullable|string',
         ]);
 
         $vendor = Vendor::findOrFail($id);
@@ -99,6 +108,7 @@ class VendorController extends Controller
         $vendor->instagram = $request->input('instagram');
         $vendor->facebook = $request->input('facebook');
         $vendor->linkedin = $request->input('linkedin');
+        $vendor->map = $request->input('map');
         $vendor->save();
 
         return redirect()->route('vendor.index')->with('success', 'Vendor berhasil diperbarui!');

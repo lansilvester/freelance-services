@@ -6,9 +6,9 @@
             <div class="col-12\">
                 <h1 class="mb-3">Detail Service</h1>
                 <div class="card flex-fill">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header">
+                        <a href="{{ route('service.index') }}" class="btn btn-outline-info mb-3"><i data-feather="chevron-left"></i> Back</a>
                         <h5 class="card-title mb-0">Service Details</h5>
-                        <a href="{{ route('service.index') }}" class="btn btn-outline-info"><i data-feather="chevron-left"></i> Back</a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -18,12 +18,14 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                <h5 class="card-title">Category</h5>
+                                <p class="card-text">{{ $service->category->nama }}</p>
                                 <h5 class="card-title">Service Name</h5>
                                 <p class="card-text">{{ $service->nama }}</p>
                                 <h5 class="card-title">Description</h5>
                                 <p class="card-text">{{ $service->deskripsi }}</p>
-                                <h5 class="card-title">Category</h5>
-                                <p class="card-text">{{ $service->category->nama }}</p>
+                                <h5 class="card-title">List Layanan</h5>
+                                <p class="card-text">{{ $service->layanan }}</p>
                                 <a href="{{ route('service.edit', $service->id) }}" class="btn btn-info">Edit</a>
                             </div>
                             <div class="col-md-3">

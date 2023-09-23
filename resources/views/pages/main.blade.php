@@ -36,7 +36,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Layanan</h2>
+          <h2>Kategori</h2>
           <p>Temukan layanan jasa anda berdasarkan kategori utama</p>
         </div>
         <div class="row mb-5">
@@ -78,7 +78,7 @@
           }
         </style>
           <div class="section-title">
-            <h2>Temukan Jasa</h2>
+            <h2>Layanan</h2>
             <p>Lihat dan temukan jasa UMKM Sesuai keperluan</p>
           </div>
           <div class="row mb-3 d-flex justify-content-evenly">

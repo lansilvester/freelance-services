@@ -30,15 +30,15 @@
 		{{-- SIDEBAR NAVIGASI --}}
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="{{ route('dashboard.index') }}">
-					<span class="align-middle">Dashboard Freelancer</span>
+				<a class="sidebar-brand" href="{{ url('/') }}">
+					<span class="align-middle">Jasa Manado</span>
 				</a>
 
+				@if(Auth::user()->role !== 'user')
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
 						Halaman
 					</li>
-
 					<li class="sidebar-item  {{ Request::is('dashboard*') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{ route('dashboard.index') }}">
 							<i class="align-middle" data-feather="home"></i> <span
@@ -65,6 +65,20 @@
 								class="align-middle">Service</span>
 						</a>
 					</li>
+				</ul>
+				@else
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Halaman
+					</li>
+					<li class="sidebar-item  {{ Request::is('profile*') ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{ route('profile.index') }}">
+							<i class="align-middle" data-feather="home"></i> <span
+								class="align-middle">Profile</span>
+						</a>
+					</li>
+				</ul>
+				@endif
 			</div>
 		</nav>
 
