@@ -129,19 +129,52 @@
                                 </div>
                             @endif
                             <h5 class="mb-3">Ulasan dari pengguna ({{ $data_ulasan->count() }})</h5>
-                            <div class="my-1 d-flex" style="list-style: none;">
-                                <div class="circle"></div>
-                              <ul>
-                                  <li>Kecepatan Membalas</li>
-                                <li>Pelayanan</li>
-                                <li>Ketrampilan dan keahlian</li>
-                                <li>Value for money</li>
-                            </ul>
+                            <div class="mb-3">
+                                @if ($service->avg_rating())
+                                    <div class="mb-3">
+                                        @for ($i = 1; $i <= $service->avg_rating(); $i++)
+                                            <i class="bi bi-star-fill" style="color: #FFD700;"></i>
+                                        @endfor
+                                        @for ($i = $service->avg_rating() + 1; $i <= 5; $i++)
+                                            <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        @endfor
+                                        <span>{{ number_format($service->avg_rating(), 1) }}</span>
+                                    </div>
+                                @else
+                                    <div class="mb-3">
+                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                        0
+                                    </div>
+                                @endif
+                            </div>
+                            {{-- <ul style="list-style-type: none">
+                                <style>
+                                    .bi-star-fill{
+                                        color:#FFD700;
+                                    }
+                                </style>
+                                <li><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> Kecepatan Membalas</li>
+                                <li><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> Pelayanan</li>
+                                <li><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> Ketrampilan dan keahlian</li>
+                                <li><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> Value for money</li>
+                            </ul> --}}
                         </div>
                             <ul id="userReviews" class="list-unstyled">
                                 @if ($data_ulasan->isEmpty())
                                 <div class="alert alert-info" style="margin: 15px 0;">Belum ada ulasan</div>
                                 @else
+                                <div class="my-2" style="list-style: none;">
+                                    <div class="circle text-center text-primary" style="width:100px;height:100px;padding:.5em;border-radius:50%;background:#c4f1ff">
+                                        <h1 class="fw-bold">
+                                            <span>{{ number_format($service->avg_rating(), 1) }}</span>
+                                        </h1>
+                                        <small style="color:#555">dari 5</small>
+                                    </div>
+                                </div>
                                 @foreach ($data_ulasan as $review)
                                 <li class="mb-3" style="background:rgba(234, 234, 234, 0.473); padding:1em 2em; border-radius:1em">
                                     <div class="d-flex justify-content-between align-items-center">
