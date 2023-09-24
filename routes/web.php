@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryHomeController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewHomeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceHomeController;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\SearchController;
 Route::get('/', [LandingPageController::class, 'index']);
 
 Route::resource('service_home', ServiceHomeController::class);
+Route::resource('review_home', ReviewHomeController::class);
 Route::resource('category_home', CategoryHomeController::class);
 Route::resource('vendor_home', VendorHomeController::class);
 Route::get('/search', [SearchController::class,'search'])->name('search');

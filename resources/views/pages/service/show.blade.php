@@ -17,7 +17,7 @@
   .mt-3{
       margin-top:30px;
   }
-  h3{
+  h5{
       color:#007ca1;
   }
 </style>
@@ -89,7 +89,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Deskripsi
+                          <strong>Deskripsi</strong>
                         </button>
                       </h2>
                       
@@ -102,7 +102,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Layanan
+                          <strong>Layanan</strong>
                         </button>
                       </h2>
                       <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -114,18 +114,17 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Ulasan
+                        <strong>Ulasan</strong>
                         </button>
                       </h2>
                       <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             @if(Auth::check())
                             <div class="col-12">
-                                <h3 class="">Berikan Ulasan Anda</h3>
-                                <br>
-                                <form method="POST" action="">
+                                <h5>Berikan Ulasan Anda</h5>
+                                <form method="POST" action="{{ route('review_home.store') }}">
                                     @csrf
-                                    <input type="hidden" name="kuliner_id" value="">
+                                    <input type="hidden" name="service_id" value="{{ $service->id }}">
                                     <div class="rating">
                                         <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
                                         <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
@@ -134,20 +133,52 @@
                                         <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
                                         <input type="hidden" name="rating" id="rating" value="0">
                                     </div>
-                                    <div class="mb-3">
-                                        <textarea class="form-control" id="ulasan" name="ulasan" rows="3" placeholder="Tambahkan komentar"></textarea>
+                                    <div class="mb-2">
+                                        <textarea class="form-control" id="ulasan" name="comment" rows="3" placeholder="Tambahkan komentar"></textarea>
                                     </div>
                                     
                                     <div class="mb-3">
-            
                                         <button type="submit" class="btn btn-primary" name="submit"><i class="bi bi-send"></i> Kirim Ulasan</button>
                                     </div>
                                 </form>
                             </div>
                             @else
-
+                              <div class="alert alert-info"><strong><a href="{{ route('login') }}">Login</a></strong> untuk dapat memberikan komentar</div>
                             @endif
-
+                            @if(session('success_ulasan'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success_ulasan') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h5 class="mb-3">Ulasan Pengguna</h5>
+                            <h6 class="mb-3"> ({{ $data_ulasan->count() }} Komentar)</h6>
+                            <ul id="userReviews" class="list-unstyled">
+                                @if ($data_ulasan->isEmpty())
+                                    <div class="alert alert-info" style="margin: 15px 0;">Belum ada ulasan</div>
+                                @else
+                                    @foreach ($data_ulasan as $review)
+                                        <li class="mb-3" style="background:rgba(234, 234, 234, 0.473); padding:1em 2em; border-radius:1em">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <strong><i class="bi bi-person-circle"></i> {{ $review->user->name }}</strong><br>
+                                                    @for ($i = 1; $i <= $review->rating; $i++)
+                                                        <i class="bi bi-star-fill" style="color: #FFD700;"></i>
+                                                    @endfor
+                                                    @for ($i = $review->rating + 1; $i <= 5; $i++)
+                                                        <i class="bi bi-star" style="color: #FFD700;"></i>
+                                                    @endfor
+                                                    <p class="mb-3">{{ $review->comment }}</p>
+                                               
+                                                    @if($review->created_at)
+                                                    <small><i class="bi bi-calendar"></i> {{ $review->created_at}}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                         </div>
                       </div>
                     </div>
@@ -161,8 +192,8 @@
   document.addEventListener('DOMContentLoaded', function () {
       const stars = document.querySelectorAll('.star');
       const ratingInput = document.getElementById('rating');
-      const ulasanInput = document.getElementById('ulasan'); // Ubah ini
-  
+      const ulasanInput = document.getElementById('comment');
+
       stars.forEach(star => {
           star.addEventListener('click', () => {
               const rating = parseInt(star.getAttribute('data-rating'));
