@@ -97,7 +97,7 @@ class ServiceController extends Controller{
             'category_id' => 'required',
             'nama' => 'required|string|max:255',
             'foto' => 'image|max:2048', // Sesuaikan dengan validasi yang Anda butuhkan
-            'deskripsi' => 'required',
+            'deskripsi' => 'string',
             'layanan' => 'string',
         ]);
     

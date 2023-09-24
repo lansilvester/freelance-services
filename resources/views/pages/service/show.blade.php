@@ -85,43 +85,20 @@
                 <span class="badge badge-success bg-success mb-2">{{ $service->category->nama }}</span>
                 <h3>{{ $service->nama }}</h3>
                 <small class="text-dark text-opacity-50">{{ $service->created_at->diffForHumans() }}</small>
-                <div class="accordion my-3" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <strong>Deskripsi</strong>
-                        </button>
-                      </h2>
-                      
-                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                        <p>{{ $service->deskripsi }}</p>  
+                        <div class="mb-3 mt-3">
+                            <h5 class="fw-bold">Deskripsi</h5>
+                            <p class="p-2">{{ $service->deskripsi }}</p>  
                         </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          <strong>Layanan</strong>
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                         <p>{{ $service->layanan }}</p>
+                        <div class="mb-3">
+                            <h5 class="fw-bold">Layanan</h5>
+                            <p class="p-2">{{ $service->layanan }}</p>
                         </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <strong>Ulasan</strong>
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            @if(Auth::check())
-                            <div class="col-12">
-                                <h5>Berikan Ulasan Anda</h5>
+                        <div class="mb-3">
+                            <h5 class="fw-bold">Ulasan</h5>
+                            <div class="ulasan-body p-2">
+
+                                @if(Auth::check())
+                                <div class="col-12">
                                 <form method="POST" action="{{ route('review_home.store') }}">
                                     @csrf
                                     <input type="hidden" name="service_id" value="{{ $service->id }}">
@@ -146,50 +123,61 @@
                               <div class="alert alert-info"><strong><a href="{{ route('login') }}">Login</a></strong> untuk dapat memberikan komentar</div>
                             @endif
                             @if(session('success_ulasan'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success_ulasan') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             @endif
-                            <h5 class="mb-3">Ulasan Pengguna</h5>
-                            <h6 class="mb-3"> ({{ $data_ulasan->count() }} Komentar)</h6>
+                            <h5 class="mb-3">Ulasan dari pengguna ({{ $data_ulasan->count() }})</h5>
+                            <div class="my-1 d-flex" style="list-style: none;">
+                                <div class="circle"></div>
+                              <ul>
+                                  <li>Kecepatan Membalas</li>
+                                <li>Pelayanan</li>
+                                <li>Ketrampilan dan keahlian</li>
+                                <li>Value for money</li>
+                            </ul>
+                        </div>
                             <ul id="userReviews" class="list-unstyled">
                                 @if ($data_ulasan->isEmpty())
-                                    <div class="alert alert-info" style="margin: 15px 0;">Belum ada ulasan</div>
+                                <div class="alert alert-info" style="margin: 15px 0;">Belum ada ulasan</div>
                                 @else
-                                    @foreach ($data_ulasan as $review)
-                                        <li class="mb-3" style="background:rgba(234, 234, 234, 0.473); padding:1em 2em; border-radius:1em">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong><i class="bi bi-person-circle"></i> {{ $review->user->name }}</strong><br>
-                                                    @for ($i = 1; $i <= $review->rating; $i++)
-                                                        <i class="bi bi-star-fill" style="color: #FFD700;"></i>
-                                                    @endfor
-                                                    @for ($i = $review->rating + 1; $i <= 5; $i++)
-                                                        <i class="bi bi-star" style="color: #FFD700;"></i>
-                                                    @endfor
-                                                    <p class="mb-3">{{ $review->comment }}</p>
-                                               
-                                                    @if($review->created_at)
-                                                    <small><i class="bi bi-calendar"></i> {{ $review->created_at}}</small>
-                                                    @endif
+                                @foreach ($data_ulasan as $review)
+                                <li class="mb-3" style="background:rgba(234, 234, 234, 0.473); padding:1em 2em; border-radius:1em">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <div class="mb-2 d-flex align-items-center">
+                                                <img src="{{ asset('storage/'.$review->user->foto_profil) }}" style="width:40px; height:40px; border-radius:50%;" class="img-fluid me-2">
+                                                      <div class="kanan">
+                                                          <strong>{{ $review->user->name }}</strong><br>
+                                                          @if($review->created_at)
+                                                          <small><i class="bi bi-calendar"></i> {{ $review->created_at->format('d-M-Y')}}</small>
+                                                      @endif
+                                                    </div>
                                                 </div>
+                                                @for ($i = 1; $i <= $review->rating; $i++)
+                                                <i class="bi bi-star-fill" style="color: #FFD700;"></i>
+                                                @endfor
+                                                @for ($i = $review->rating + 1; $i <= 5; $i++)
+                                                <i class="bi bi-star" style="color: #FFD700;"></i>
+                                                @endfor
+                                                <p class="mb-3">{{ $review->comment }}</p>
+                                               
                                             </div>
-                                        </li>
+                                        </div>
+                                    </li>
                                     @endforeach
                                 @endif
                             </ul>
                         </div>
-                      </div>
                     </div>
-                  </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
       const stars = document.querySelectorAll('.star');
       const ratingInput = document.getElementById('rating');
       const ulasanInput = document.getElementById('comment');

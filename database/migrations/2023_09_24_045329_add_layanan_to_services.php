@@ -14,7 +14,7 @@ class AddLayananToServices extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->string('layanan')->nullable();
+            $table->text('layanan')->nullable();
         });
     }
 
@@ -26,7 +26,8 @@ class AddLayananToServices extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            //
+            $table->text('layanan')->nullable();
+
         });
     }
 }
