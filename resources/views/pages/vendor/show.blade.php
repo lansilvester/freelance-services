@@ -55,7 +55,7 @@
                         </span>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
-                        <b><i class="bi bi-map"></i> Maps</b>
+                        <b><i class="bi bi-map"></i> Maps</b><br>
                         {!! $vendor->map !!}
                     </div>
                     

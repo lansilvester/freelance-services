@@ -1,5 +1,15 @@
 @extends('admin.base')
 @section('content')
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+	tinymce.init({
+		selector: '#deskripsi',
+	});
+	tinymce.init({
+		selector: '#layanan'
+	});
+</script>
 <main class="content">
     <div class="container-fluid p-0">
         <div class="row">
@@ -37,6 +47,10 @@
                             <div class="form-group mb-4">
                                 <label for="deskripsi" class="card-title">Deskripsi Service</label>
                                 <textarea class="form-control" id="deskripsi" placeholder="Deskripsi service.." name="deskripsi">{{ $service->deskripsi }}</textarea>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="layanan" class="card-title">layanan Service</label>
+                                <textarea class="form-control" id="layanan" placeholder="layanan service.." name="layanan">{{ $service->layanan }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary w-100" name="submit"><i data-feather="edit"></i>Update Service</button>
                         </form>     

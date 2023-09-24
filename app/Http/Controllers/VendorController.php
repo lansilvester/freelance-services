@@ -124,14 +124,17 @@ class VendorController extends Controller
     public function destroy($id)
     {
         $vendor = Vendor::findOrFail($id);
-
+        dd($vendor);
+        
         // Hapus foto jika ada
         if ($vendor->foto) {
             Storage::disk('public')->delete($vendor->foto);
         }
-
+        $vendor->services()->delete();
+        $vendor->services->each(function ($service) {
+            $service->review()->delete();
+        });
         $vendor->delete();
-
         return redirect()->route('vendor.index')->with('success', 'Vendor berhasil dihapus.');
     }
 }

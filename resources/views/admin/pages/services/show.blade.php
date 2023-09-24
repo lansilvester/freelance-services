@@ -18,15 +18,19 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <h5 class="card-title">Category</h5>
-                                <p class="card-text">{{ $service->category->nama }}</p>
-                                <h5 class="card-title">Service Name</h5>
-                                <p class="card-text">{{ $service->nama }}</p>
-                                <h5 class="card-title">Description</h5>
-                                <p class="card-text">{{ $service->deskripsi }}</p>
-                                <h5 class="card-title">List Layanan</h5>
-                                <p class="card-text">{{ $service->layanan }}</p>
-                                <a href="{{ route('service.edit', $service->id) }}" class="btn btn-info">Edit</a>
+                                <h3 class="fw-bold">Category</h3>
+                                <p class="card-text px-3">{{ $service->category->nama }}</p>
+                                <h3 class="fw-bold">Service Name</h3>
+                                <p class="card-text px-3">{{ $service->nama }}</p>
+                                <h3 class="fw-bold">Description</h3>
+                                <div class="px-3">
+                                    {!! $service->deskripsi !!}
+                                </div>
+                                <h3 class="fw-bold">List Layanan</h3>
+                                <div class="px-3 mb-4">
+                                    {!! $service->layanan !!}
+                                </div>
+                                <a href="{{ route('service.edit', $service->id) }}" class="btn btn-info"><i class="bi bi-pen"></i> Edit</a>
                             </div>
                             <div class="col-md-3">
                                 <h5 class="card-title">Vendor</h5>

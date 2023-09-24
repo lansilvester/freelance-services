@@ -48,9 +48,6 @@
               {{ $result->nama }}
             </h3>
           </a>
-          <p class="mb-4 text-truncate">
-            {{ $result->deskripsi }} <br>
-          </p>
           <div class="profile-vendor">
             
             <a href="{{ route('vendor_home.show', $result->id) }}" class="shadow text-decoration-none text-dark">

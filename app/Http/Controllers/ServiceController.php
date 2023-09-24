@@ -130,6 +130,13 @@ class ServiceController extends Controller{
     
     public function destroy($id)
     {
-        //
+        $service = Service::findOrFail($id);
+    
+        // Hapus foto jika ada
+        if ($service->foto) {
+            Storage::disk('public')->delete($service->foto);
+        }
+        $service->delete();
+        return redirect()->route('service.index')->with('success', 'service berhasil dihapus.');
     }
 }

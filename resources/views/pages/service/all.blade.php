@@ -48,10 +48,6 @@
               {{ $service->nama }}
             </h3>
           </a>
-          <p class="mb-4 text-truncate">
-            {{ $service->deskripsi }} <br>
-
-          </p>
           <div class="profile-vendor">
 
             <a href="{{ route('vendor_home.show', $service->vendor->id) }}" class="shadow text-decoration-none text-dark">
@@ -59,7 +55,7 @@
                 <img src="{{ asset('storage/'.$service->vendor->foto) }}" alt="" class="img-fluid me-3" style="width:40px; border-radius:.5em;">
                 <div class="me-5">
                   <b>{{ $service->vendor->nama }}</b><br>
-                  <span><i>{{ $service->vendor->user->name }}</i></span>
+                  {{-- <span><i>{{ $service->vendor->user->name }}</i></span> --}}
                 </div>
                 <span class="btn btn-primary">
                   <i class="bi bi-arrow-right"></i>

@@ -35,10 +35,6 @@
             {{ $service->nama }}
           </h3>
         </a>
-        <p class="mb-4 text-truncate">
-          {{ $service->deskripsi }} <br>
-
-        </p>
         <div class="profile-vendor">
 
           <a href="{{ route('vendor_home.show', $service->vendor->id) }}" class="shadow text-decoration-none text-dark">

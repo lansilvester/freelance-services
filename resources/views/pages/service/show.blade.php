@@ -76,7 +76,6 @@
                     </a>
                 </div>
                 
-                
             </div>
             <div class="col-md-8 col-sm-12 col-xs-12 py-3 px-5 rounded">
                 <div class="mb-4">
@@ -87,12 +86,14 @@
                 <small class="text-dark text-opacity-50">{{ $service->created_at->diffForHumans() }}</small>
                         <div class="mb-3 mt-3">
                             <h5 class="fw-bold">Deskripsi</h5>
-                            <p class="p-2">{{ $service->deskripsi }}</p>  
+                            <div class="p-2">{!! $service->deskripsi !!}</div>  
                         </div>
                         <div class="mb-3">
                             <h5 class="fw-bold">Layanan</h5>
-                            <p class="p-2">{{ $service->layanan }}</p>
+                            <div class="p-2">{!! $service->layanan !!}</div>  
                         </div>
+                        
+                        
                         <div class="mb-3">
                             <h5 class="fw-bold">Ulasan</h5>
                             <div class="ulasan-body p-2">
